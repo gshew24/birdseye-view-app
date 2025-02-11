@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>birdseye view app</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        #spaceContainer {
+            position: relative;
+            width: 80%;
+            height: 500px;
+            background: #ddd;
+            margin: 20px auto;
+            border: 2px solid #333;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spaceItem {
+            width: 80px;
+            height: 80px;
+            background: #3498db;
+            margin: 10px;
+            text-align: center;
+            line-height: 80px;
+            color: white;
+            font-weight: bold;
+            cursor: move;
+            position: absolute;
+        }
+
+        #mascot {
+            width: 100px;
+            transform: rotate(180deg);
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="appBrand">birdseye view app</h1>
+        <p class="description">
+            This web app provides a bird's-eye view of a physical space, displaying interactive objects that can be moved around.
+        </p>
+        <a href="https://wireframe.cc/NvgsUe" target="_blank">View Wireframe</a>
+    </header>
+
+    <main class="container">
+        <div id="spaceContainer"></div>
+    </main>
+
+    <img src="https://static-00.iconduck.com/assets.00/seal-emoji-1024x772-469hy8l0.png" id="mascot" alt="Class Mascot">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            console.log("birdseye-view-app initialized.");
+
+            let spaceContainer = $("#spaceContainer");
+
+            for (let i = 1; i <= 5; i++) {
+                let newItem = $("<div>", {
+                    class: "spaceItem",
+                    text: "Item " + i,
+                    css: {
+                        top: Math.random() * 400 + "px",
+                        left: Math.random() * 700 + "px"
+                    }
+                });
+                spaceContainer.append(newItem);
+            }
+
+            $(".spaceItem").draggable({
+                containment: "#spaceContainer",
+                stop: function(event, ui) {
+                    console.log("New Position: ", ui.position);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
